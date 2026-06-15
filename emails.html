@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Copy — Franklin May S. Maldonado</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --purple: #5B4B8A; --purple-mid: #7B6BAE; --purple-pale: #EDE9F6;
+    --gold: #C9A84C; --dark: #1A1A2E; --gray: #666677; --light: #F4F2FA; --white: #fff;
+  }
+  body { font-family: "Segoe UI", system-ui, sans-serif; background: var(--light); color: var(--dark); }
+
+  header { background: var(--purple); padding: 52px 40px 48px; text-align: center; position: relative; overflow: hidden; }
+  header::before { content:""; position:absolute; top:-80px; right:-60px; width:300px; height:300px; border-radius:50%; background:rgba(255,255,255,0.05); }
+  header::after  { content:""; position:absolute; bottom:-90px; left:-50px; width:220px; height:220px; border-radius:50%; background:rgba(255,255,255,0.04); }
+  .eyebrow { display:inline-block; border:1px solid rgba(255,255,255,0.3); background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.88); font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:5px 18px; border-radius:20px; margin-bottom:18px; }
+  header h1 { color:#fff; font-size:38px; font-weight:800; letter-spacing:-0.5px; margin-bottom:10px; }
+  header h1 em { color:var(--gold); font-style:normal; }
+  header p { color:rgba(255,255,255,0.72); font-size:15px; max-width:500px; margin:0 auto; line-height:1.65; }
+
+  .back-link { display:inline-block; margin:24px 40px 0; color:var(--purple-mid); font-size:13px; font-weight:600; text-decoration:none; }
+  .back-link:hover { color:var(--purple); }
+
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px; padding:24px 40px 60px; max-width:1200px; margin:0 auto; }
+
+  .card { background:var(--white); border-radius:14px; overflow:hidden; border:1px solid rgba(91,75,138,0.1); box-shadow:0 2px 10px rgba(91,75,138,0.06); cursor:pointer; transition:transform 0.2s, box-shadow 0.2s; display:flex; flex-direction:column; }
+  .card:hover { transform:translateY(-4px); box-shadow:0 12px 28px rgba(91,75,138,0.16); }
+  .card-top { padding:20px; display:flex; align-items:flex-start; justify-content:space-between; }
+  .card-icon { font-size:28px; }
+  .card-type-badge { font-size:10px; font-weight:700; color:#fff; background:rgba(255,255,255,0.2); padding:3px 10px; border-radius:20px; letter-spacing:0.4px; white-space:nowrap; }
+  .card-body { padding:0 20px 16px; flex:1; display:flex; flex-direction:column; gap:6px; }
+  .card-industry { font-size:10px; font-weight:700; color:var(--purple-mid); text-transform:uppercase; letter-spacing:0.8px; }
+  .card-name { font-size:16px; font-weight:800; color:var(--dark); line-height:1.3; }
+  .card-client { font-size:12px; color:var(--gray); font-style:italic; }
+  .card-preview { font-size:12px; color:var(--gray); line-height:1.6; margin-top:4px; flex:1; }
+  .card-meta { margin-top:8px; }
+  .pill { background:var(--purple-pale); color:var(--purple); font-size:11px; font-weight:600; padding:3px 10px; border-radius:20px; }
+  .card-footer { padding:12px 20px; border-top:1px solid var(--purple-pale); background:#FAFAFE; }
+  .read-btn { font-size:12px; font-weight:700; color:var(--purple); }
+
+  /* MODAL */
+  .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:1000; align-items:center; justify-content:center; padding:20px; }
+  .modal-overlay.open { display:flex; }
+  .modal { background:var(--white); border-radius:16px; width:100%; max-width:720px; max-height:88vh; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 24px 60px rgba(0,0,0,0.3); }
+  .modal-header { padding:24px 24px 20px; display:flex; align-items:flex-start; gap:16px; flex-shrink:0; }
+  .modal-icon { font-size:32px; margin-top:2px; }
+  .modal-meta { flex:1; }
+  .modal-type { font-size:11px; font-weight:700; color:rgba(255,255,255,0.7); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:4px; }
+  .modal-title { font-size:20px; font-weight:800; color:#fff; margin-bottom:4px; line-height:1.2; }
+  .modal-client { font-size:13px; color:rgba(255,255,255,0.75); }
+  .modal-close { background:rgba(255,255,255,0.2); border:none; color:#fff; width:32px; height:32px; border-radius:50%; font-size:14px; cursor:pointer; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+  .modal-close:hover { background:rgba(255,255,255,0.35); }
+  .modal-body { padding:24px; overflow-y:auto; flex:1; }
+  .drive-btn { display:inline-block; background:var(--purple); color:#fff; text-decoration:none; padding:9px 20px; border-radius:8px; font-size:13px; font-weight:700; margin-bottom:20px; transition:background 0.2s; }
+  .drive-btn:hover { background:var(--purple-mid); }
+  .email-content { font-size:13px; color:var(--dark); line-height:1.8; }
+  .email-content p { margin-bottom:10px; }
+  .email-content p:empty { display:none; }
+
+  footer { text-align:center; padding:28px 40px; border-top:1px solid var(--purple-pale); font-size:13px; color:var(--gray); }
+  footer strong { color:var(--purple); }
+
+  @media(max-width:640px) { header{ padding:36px 20px; } header h1{ font-size:28px; } .grid{ padding:16px; } .back-link{ margin:16px; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Portfolio · Email Copy</div>
+  <h1>Email Copy <em>Samples</em></h1>
+  <p>Drip sequences, onboarding flows, promotional emails, and nurture campaigns written across multiple industries.</p>
+</header>
+
+<a class="back-link" href="index.html">← Back to Portfolio</a>
+
+<div class="grid">
+  <div class="card" onclick="document.getElementById('modal-clickfunnel_purchase').classList.add('open')">
+    <div class="card-top" style="background:#5B4B8A">
+      <span class="card-icon">🛒</span>
+      <span class="card-type-badge">Purchase Onboarding</span>
+    </div>
+    <div class="card-body">
+      <div class="card-industry">Digital Marketing Agency</div>
+      <div class="card-name">ClickFunnel Purchase Sequence</div>
+      <div class="card-client">Client: Peripheral Media</div>
+      <div class="card-preview">(First Email) You’ve Made The Right Decision  Subject lines  You Have Made The Right Decision Body: Hey There, [Name]!  I’m Carlos Diez Jr, Founder + Marketing Strategist of Periph...</div>
+      <div class="card-meta">
+        <span class="pill">3-Email Sequence</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="read-btn">Read Copy ↗</span>
+    </div>
+  </div>
+  <div class="card" onclick="document.getElementById('modal-clickfunnel_upsell').classList.add('open')">
+    <div class="card-top" style="background:#7B3F9E">
+      <span class="card-icon">⬆️</span>
+      <span class="card-type-badge">Upsell / Ascension</span>
+    </div>
+    <div class="card-body">
+      <div class="card-industry">Digital Marketing Agency</div>
+      <div class="card-name">ClickFunnel Upsell Sequence</div>
+      <div class="card-client">Client: Peripheral Media</div>
+      <div class="card-preview">Day 1 (First Email)  1-hour of exclusive marketing insight with Founder + Marketing Strategist Subject lines 1-Hour of Exclusive Marketing Insight with Founder + Marketing Strategi...</div>
+      <div class="card-meta">
+        <span class="pill">3-Email Sequence</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="read-btn">Read Copy ↗</span>
+    </div>
+  </div>
+  <div class="card" onclick="document.getElementById('modal-fff_sequence').classList.add('open')">
+    <div class="card-top" style="background:#2E7D32">
+      <span class="card-icon">💪</span>
+      <span class="card-type-badge">Lead Nurture Sequence</span>
+    </div>
+    <div class="card-body">
+      <div class="card-industry">Health &amp; Fitness</div>
+      <div class="card-name">Email Sequence for FFF</div>
+      <div class="card-client">Client: Free Form Fitness</div>
+      <div class="card-preview">Day 1 (First Email)  Time-efficient workouts Subject lines I’ve got something to tell you Want to know a secret? Here’s a secret you didn’t know Hey there! Before anything else, I...</div>
+      <div class="card-meta">
+        <span class="pill">Multi-Email Drip</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="read-btn">Read Copy ↗</span>
+    </div>
+  </div>
+  <div class="card" onclick="document.getElementById('modal-ghl_funnel').classList.add('open')">
+    <div class="card-top" style="background:#1565C0">
+      <span class="card-icon">⚡</span>
+      <span class="card-type-badge">Funnel Email Sequence</span>
+    </div>
+    <div class="card-body">
+      <div class="card-industry">Email Marketing / SaaS</div>
+      <div class="card-name">GoHighLevel Funnel Emails</div>
+      <div class="card-client">Client: Peripheral Media</div>
+      <div class="card-preview">Day 1 (First Email)  Same Priced Course/PDF Subject lines  Your Email Marketing Success Starts Now! Time to launch your Email Marketing success! Time to begin your Email Marketing...</div>
+      <div class="card-meta">
+        <span class="pill">Multi-Email Drip</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="read-btn">Read Copy ↗</span>
+    </div>
+  </div>
+  <div class="card" onclick="document.getElementById('modal-onboarding').classList.add('open')">
+    <div class="card-top" style="background:#C9A84C">
+      <span class="card-icon">🏦</span>
+      <span class="card-type-badge">Onboarding Sequence</span>
+    </div>
+    <div class="card-body">
+      <div class="card-industry">Finance &amp; Insurance</div>
+      <div class="card-name">Onboarding Email Segment</div>
+      <div class="card-client">Client: World Financial Group</div>
+      <div class="card-preview">Day 1 (First Email)  Introduction to Financial Plan/Protection Subject lines  What is Financial Protection and Why You need it... Body: Greetings [Name]! I’m Charles Abbey, Financi...</div>
+      <div class="card-meta">
+        <span class="pill">Multi-Email Drip</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="read-btn">Read Copy ↗</span>
+    </div>
+  </div>
+  <div class="card" onclick="document.getElementById('modal-one_time_promo').classList.add('open')">
+    <div class="card-top" style="background:#C62828">
+      <span class="card-icon">👗</span>
+      <span class="card-type-badge">Promotional Email</span>
+    </div>
+    <div class="card-body">
+      <div class="card-industry">Fashion / E-Commerce</div>
+      <div class="card-name">One-Time Promotion Email</div>
+      <div class="card-client">Client: ClaireCM Apparel</div>
+      <div class="card-preview">Email Segment (One-Time Promotion Email) Subject lines Ready to Update Your Fashion Style? Want to Be Trendy and Plus Size Ready? Classy and Timeless Apparel Just for You Upgrade Y...</div>
+      <div class="card-meta">
+        <span class="pill">Single Broadcast</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="read-btn">Read Copy ↗</span>
+    </div>
+  </div>
+  <div class="card" onclick="document.getElementById('modal-photo_vibrance').classList.add('open')">
+    <div class="card-top" style="background:#00838F">
+      <span class="card-icon">📷</span>
+      <span class="card-type-badge">Promotional Sequences</span>
+    </div>
+    <div class="card-body">
+      <div class="card-industry">Photography / Lifestyle / Wellness</div>
+      <div class="card-name">PhotoVibrance, UnitedPatriot &amp; Karmavana</div>
+      <div class="card-client">Client: Multiple Clients</div>
+      <div class="card-preview">First Email  PhotoVibrance Limited-Time Promotion Email    Subject lines    ● You’re one click away from creating masterpieces!   ● Make your masterpiece Shine Bright with PhotoVib...</div>
+      <div class="card-meta">
+        <span class="pill">Multi-Client Series</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="read-btn">Read Copy ↗</span>
+    </div>
+  </div>
+  <div class="card" onclick="document.getElementById('modal-sign_chef').classList.add('open')">
+    <div class="card-top" style="background:#E65100">
+      <span class="card-icon">🪧</span>
+      <span class="card-type-badge">Educational Drip Sequence</span>
+    </div>
+    <div class="card-body">
+      <div class="card-industry">Business Signage / B2B</div>
+      <div class="card-name">The Sign Chef Email Segment</div>
+      <div class="card-client">Client: The Sign Chef</div>
+      <div class="card-preview">Day 1 (First Email)  Introduction/Explanation on Why Does Business Sign Works?    Subject Line:  • Why Does Business Sign Works?   • What are Business Signs and Why You Need Them?...</div>
+      <div class="card-meta">
+        <span class="pill">Multi-Email Drip</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="read-btn">Read Copy ↗</span>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="modal-overlay" id="modal-clickfunnel_purchase" onclick="closeModal(event, this)">
+  <div class="modal">
+    <div class="modal-header" style="background:#5B4B8A">
+      <div class="modal-icon">🛒</div>
+      <div class="modal-meta">
+        <div class="modal-type">Purchase Onboarding · 3-Email Sequence</div>
+        <div class="modal-title">ClickFunnel Purchase Sequence</div>
+        <div class="modal-client">Peripheral Media · Digital Marketing Agency</div>
+      </div>
+      <button class="modal-close" onclick="document.getElementById('modal-clickfunnel_purchase').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body">
+      <a class="drive-btn" href="https://drive.google.com/drive/folders/1HCKtw4bGOf16W3U6YoQa_sT8KhaG0wE4?usp=drive_link" target="_blank" rel="noopener">📁 View Full File on Google Drive ↗</a>
+      <div class="email-content"><p>(First Email)</p>
+<p>You’ve Made The Right Decision</p>
+<p>Subject lines</p>
+<p>You Have Made The Right Decision</p>
+<p>Body:</p>
+<p>Hey There, [Name]!</p>
+<p>I’m Carlos Diez Jr, Founder + Marketing Strategist of Peripheral Media.</p>
+<p>First of all, I’d like to thank and congratulate you for making the RIGHT decision.</p>
+<p>You now have a team of experts to support your marketing effort and take your business to the next level!</p>
+<p>I know that you already have your membership login access, but I still want to give you a copy [membership log-in access] in case of an emergency. And here is an email [email] for your member support.</p>
+<p>There’ll be a live zoom session hosted by me for the next 4 weeks, and I would like to invite you and join me in every session. [link of zoom session]</p>
+<p>I’m going to share with you the key benefits of learning email marketing and automation.</p>
+<p>Let’s talk soon,</p>
+<p>Founder + Marketing Strategist of Peripheral Media,</p>
+<p>[Founder’s Name]</p>
+<p>P.S.  I would like to invite you to join our private Facebook Group to keep you updated with activities and content. [link of the FB group]</p>
+<p>(Second Email)</p>
+<p>Stand Out in Every Customer’s Inbox</p>
+<p>Subject lines</p>
+<p>Stand Out in Every Customer’s Inbox</p>
+<p>Body:</p>
+<p>Hey there, [Name].</p>
+<p>I’m here to tell you that you should integrate full-service email marketing as an ongoing growth channel for your business.</p>
+<p>You might be wondering, “Why do I have to do that Carlos?”</p>
+<p>Intuitive email marketing to help take your business to the next level</p>
+<p>It takes the right approach to produce ready-to-buy followers who actively seek your product/service.</p>
+<p>You have to make sure customers receive your offers and messages</p>
+<p>What good is a splendidly designed email with an effective and compelling copy if the end-user never receives it, right?</p>
+<p>There’s more to it, and that’s showing your offer’s value in front of your “target market.”</p>
+<p>Automating your email to give the impression of “personally sent” is the first step to building meaningful relationships without costing you thousands of dollars.</p>
+<p>You might be worried and in doubt, if your emails will reach your target audience.</p>
+<p>“What will I do to make sure that I reach my target customer?”</p>
+<p>In Peripheral Media, we’ll be your partner in helping establish your brand.</p>
+<p>We’ll make sure to reach your desired audiences while saving time and looking high-end with a custom branded template for your campaign.</p>
+<p>Keep us posted with your success stories.</p>
+<p>Founder + Marketing Strategist of Peripheral Media,</p>
+<p>[Founder’s Name]</p>
+<p>P.S. Here is a PDF to utilize existing customer data to propel your brand [PDF]</p>
+<p>P.P.S Stay tuned to all our emails and upcoming offers</p>
+<p>(Third Email)</p>
+<p>Promote and Improve Relationship-Building Campaigns Through Every Email</p>
+<p>Subject lines</p>
+<p>Promote and Improve Relationship-Building Campaigns Through Every Email</p>
+<p>Body:</p>
+<p>Hello [name],</p>
+<p>How is everything going?</p>
+<p>I want you to know that it’s important that your audience knows:</p>
+<p>Who you are</p>
+<p>What you’re offering</p>
+<p>How can they benefit from your offer</p>
+<p>If you’ve nurtured audiences and showcased your level of expertise and services successfully, you can start seeing the results you’ve always wanted!</p>
+<p>Make sure customers receive your offers and messages, by not ending up in the Junk Folder or Promotions tab in Gmail.</p>
+<p>And if you already have a system that works? You’ll get to scale quickly without the unnecessary struggle.</p>
+<p>With email marketing and automation, grow your audience with new subscribers while providing consistent strategic marketing to existing customers, through email campaigns.</p>
+<p>Peripheral Media creates safeguards like confirmation messaging after opt-in, white-label strategies, and verifying domains to ensure your emails are received.</p>
+<p>We make sure that your emails land directly in your audience’s inbox without jumping through hoops by collecting data and metrics of deliverability to monitor click rates.</p>
+<p>Let’s get started today. [Click here] to access your free PDF about [topic].</p>
+<p>Founder + Marketing Strategist of Peripheral Media,</p>
+<p>[Founder’s Name]</p>
+<p>P.S. I hope that you are now part of our MailChimp Facebook group and be connected with email marketing experts.</p>
+<p>.</p>
+<p>(Fourth Email)</p>
+<p>1:1 Consult with Carlos Diez</p>
+<p>Subject lines</p>
+<p>1on1 Consult Call With Carlos Diez</p>
+<p>Body</p>
+<p>Hey There!</p>
+<p>I’m here to tell you a secret…</p>
+<p>What I’m about to say, I say only to you</p>
+<p>What if, You could have a 1on1 Session with ME?</p>
+<p>You might be thinking, ”What would that do for MY business, Carlos?” or “With the MailChimp Courses, What else do I need to know?”</p>
+<p>Well here is what…</p>
+<p>Here, You can learn PROVEN strategies to look high-end with a custom branded template for your campaign!</p>
+<p>I will be teaching PERSONALLY on basics and fundamentals of email marketing and start designing for you!</p>
+<p>Basically, you’ll be having an assistant that we’ll do a lot of work for you- connecting with your ads, email automation, and landing pages.</p>
+<p>I’ll be your partner in helping establish your brand!</p>
+<p>Sounds great, right?</p>
+<p>Well, what are we waiting for?</p>
+<p>Here is the link to book a consult call with me [link]</p>
+<p>See you at our 1on1 consultation call</p>
+<p>Founder + Marketing Strategist of Peripheral Media,</p>
+<p>[Founder’s Name]</p>
+<p>P.S.Why are you still reading this email?</p>
+<p>Are you seriously going to miss this opportunity on how to create effective emails and engage to your subscribers, that I’ll teach you personally?</p>
+<p>Take advantage of this offer before you missed everything!</p>
+<p>P.P.S I would highly appreciate it if you could leave a testimonial in TrustPilot link</p></div>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-clickfunnel_upsell" onclick="closeModal(event, this)">
+  <div class="modal">
+    <div class="modal-header" style="background:#7B3F9E">
+      <div class="modal-icon">⬆️</div>
+      <div class="modal-meta">
+        <div class="modal-type">Upsell / Ascension · 3-Email Sequence</div>
+        <div class="modal-title">ClickFunnel Upsell Sequence</div>
+        <div class="modal-client">Peripheral Media · Digital Marketing Agency</div>
+      </div>
+      <button class="modal-close" onclick="document.getElementById('modal-clickfunnel_upsell').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body">
+      <a class="drive-btn" href="https://drive.google.com/drive/folders/1HCKtw4bGOf16W3U6YoQa_sT8KhaG0wE4?usp=drive_link" target="_blank" rel="noopener">📁 View Full File on Google Drive ↗</a>
+      <div class="email-content"><p>Day 1 (First Email)</p>
+<p>1-hour of exclusive marketing insight with Founder + Marketing Strategist</p>
+<p>Subject lines</p>
+<p>1-Hour of Exclusive Marketing Insight with Founder + Marketing Strategist</p>
+<p>Body:</p>
+<p>Greetings [Name],</p>
+<p>Congrats, you’ve purchased 1-hour of exclusive marketing insight with Founder + Marketing Strategist….Carlos Diez Jr</p>
+<p>Click Here to book a time that works with your schedule.</p>
+<p>Let’s discuss all the things that will help your business grow…</p>
+<p>I know that marketing can be a difficult career especially if you don’t know where to start.</p>
+<p>Email marketing is one way to help take your business to the next level</p>
+<p>And it takes the right approach to produce ready-to-buy followers who actively seek YOUR BRAND.</p>
+<p>You won’t be able to re-target your audience if you find it hard to identify them.</p>
+<p>In our consultation, you will focus on pain points or things you’ve been struggling with lately.  And we will identify challenges that you think are not within your (business) scope.</p>
+<p>And if you have topics outside of email marketing that you’d like to discuss?  Great, let’s talk about it.</p>
+<p>You have 1 hour with a marketing expert so take advantage of this time!</p>
+<p>And if you are not sure what you want to discuss (yet)?</p>
+<p>That’s no problem!</p>
+<p>I have done this before and I can help you identify the best solutions in mapping out your plans in the next few weeks or months.</p>
+<p>I’ll see you soon during our Consultation</p>
+<p>Founder + Marketing Strategist of Peripheral Media,</p>
+<p>[Founder’s Name]</p>
+<p>Day 2 (Second Email)</p>
+<p>Follow Up Email</p>
+<p>Subject lines</p>
+<p>You Don’t Want To Miss Out On This Offer</p>
+<p>Why Are Still Not Signed Up?</p>
+<p>Body:</p>
+<p>Hey There, [Name]!</p>
+<p>I see that you haven’t purchased your 1on1 consultation with me.</p>
+<p>Well, that’s Okay because It’s not too late!</p>
+<p>The offer is still open for you…</p>
+<p>Here is the link to book a consult call with me [link]</p>
+<p>You can still learn PROVEN strategies to look high-end with a custom branded template for your campaign!</p>
+<p>And experience PERSONALLY the way I teach basics and fundamentals of email marketing and start designing for you!</p>
+<p>Don’t miss the opportunity of having an assistant that we’ll do a lot of work for you- connecting with your ads, email automation, and landing pages.</p>
+<p>Let’s be partners in establishing your brand!</p>
+<p>Talk soon,</p>
+<p>Founder + Marketing Strategist of Peripheral Media,</p>
+<p>[Founder’s Name]</p>
+<p>Day 2 (Second Email)</p>
+<p>Follow Up After The Call</p>
+<p>Subject Lines</p>
+<p>I hope You’ve Gained A Lot of Knowledge</p>
+<p>Hey There, It’s Me Carlos</p>
+<p>Body</p>
+<p>Hello [Name],</p>
+<p>I enjoyed talking to you, I hope you feel the same</p>
+<p>Thank you for participating in our 1on1 consultation and for entrusting your business to me</p>
+<p>This email won’t be long and won’t take too much of your time</p>
+<p>First of all, I want to ask if you could provide a testimonial for Peripheral Media (TrustPilot link).</p>
+<p>I’d like to ask you what was the most benefit, and what game-changing insight did you receive?</p>
+<p>Assuming that you learned something, of course, haha (well I do hope so).</p>
+<p>By now, you should be able to create a series of automated emails that help grow your bond with your customers.</p>
+<p>By the way, is there by chance a missing link when purchasing this course, or the 1:1 consult they had?</p>
+<p>I don’t want you to miss out on anything that we’ll benefit you.</p>
+<p>Lastly, I want to ask you something about my performance…</p>
+<p>I know that we had a great time and all, but I just wanted to know</p>
+<p>Did I pass? I mean, would you recommend our course to other business owners?</p>
+<p>I am open to feedback, on ways to improve something that you didn’t really like or you feel lacking in me.</p>
+<p>Let’s discuss this matter soon…</p>
+<p>Founder + Marketing Strategist of Peripheral Media,</p>
+<p>[Founder’s Name]</p>
+<p>P.S. I expect that you can now Integrate Full-Service Email Marketing as a Growth Channel for Your Business</p></div>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-fff_sequence" onclick="closeModal(event, this)">
+  <div class="modal">
+    <div class="modal-header" style="background:#2E7D32">
+      <div class="modal-icon">💪</div>
+      <div class="modal-meta">
+        <div class="modal-type">Lead Nurture Sequence · Multi-Email Drip</div>
+        <div class="modal-title">Email Sequence for FFF</div>
+        <div class="modal-client">Free Form Fitness · Health &amp; Fitness</div>
+      </div>
+      <button class="modal-close" onclick="document.getElementById('modal-fff_sequence').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body">
+      <a class="drive-btn" href="https://drive.google.com/drive/folders/1HCKtw4bGOf16W3U6YoQa_sT8KhaG0wE4?usp=drive_link" target="_blank" rel="noopener">📁 View Full File on Google Drive ↗</a>
+      <div class="email-content"><p>Day 1 (First Email)</p>
+<p>Time-efficient workouts</p>
+<p>Subject lines</p>
+<p>I’ve got something to tell you</p>
+<p>Want to know a secret?</p>
+<p>Here’s a secret you didn’t know</p>
+<p>Hey there!</p>
+<p>Before anything else, I want to ask you something important. Do you ever find your workouts agitating especially when things don’t go as planned?</p>
+<p>Like, “Hey! I want to be fit, but why does it take sooo much of my time?”</p>
+<p>or</p>
+<p>“I want to be healthy, but there are a lot of things to do, and exercising takes up hours to get done.”</p>
+<p>So you’ve ended up either doing your exercises in an unhealthy manner or not do them at all.</p>
+<p>But what if I tell you that these healthy workouts of yours can be executed without consuming lots of time?</p>
+<p>Sounds interesting, right?</p>
+<p>Of course! Anyone would want to be in shape while being productive at the same time.</p>
+<p>The only thing you need to do is to make sure that you’re getting all of my emails because what I am about to say would greatly help you with these problems.</p>
+<p>If my emails aren’t getting through, you’ll miss all the valuable information about my secrets to be healthy and fit without consuming a lot of time.</p>
+<p>And I bet you wouldn’t want to miss this kind of opportunity.</p>
+<p>Talk to you soon,</p>
+<p>[Founder name]</p>
+<p>Free Form Fitness Founder</p>
+<p>P.S..  Stay tuned for the following emails if you want to experience the most effective way to achieve your health goals.</p>
+<p>I&#x27;m about to teach you my three (3) main secrets on how to reach your desired results.</p>
+<p>Day 2 (Second Email)</p>
+<p>Stressless exercises</p>
+<p>Subject lines</p>
+<p>I brought some more good news for you!</p>
+<p>I forgot to tell you this</p>
+<p>You’re actually staying tuned</p>
+<p>Hey, I’m back!</p>
+<p>I have a secret I wish to tell you. It is something I think you would like, or not. Nonetheless, I’m going to say it anyway.</p>
+<p>It’s exhausting, right? The tormenting part of being fit and healthy,</p>
+<p>Doing those sit-ups, push-ups, and different kinds of ups repeatedly.</p>
+<p>The worst part is when you see no progress at all!</p>
+<p>Aren’t you frustrated with these activities that consume most of your time and effort and stuck repeating the same routines with no visible result?</p>
+<p>Cause I’d surely be mad!</p>
+<p>We both know that you have to adjust big time to reach your fitness goals and desires.</p>
+<p>What if I told you that your workouts should not give you distress to be fit and healthy?</p>
+<p>I bet you didn’t expect that!</p>
+<p>And if you did expect that, well yeah that’s nice, but still, it’s something worth sharing with you!</p>
+<p>Why am I telling you this anyway? It is because I care about your well-being.</p>
+<p>I’ve seen too many professionals experiencing this problem, and I don’t want you to experience tormenting workouts just because you chose to have a healthy lifestyle.</p>
+<p>If you don’t want to achieve your health and fitness desires without consuming lots of your time, well, my emails are not for you.</p>
+<p>But of course, if you want what I offer, you have to keep listening to my secrets!</p>
+<p>These secrets we’ll help you make life easier.</p>
+<p>Just keep an eye on my emails if you don’t want to miss the opportunity.</p>
+<p>Talk soon,</p>
+<p>[Founder name]</p>
+<p>Free Form Fitness Founder</p>
+<p>Day 3 (Third Email)</p>
+<p>Proper tailoring and guidance from Experts</p>
+<p>Subject lines</p>
+<p>I really did pique your interest</p>
+<p>For you, my friend</p>
+<p>We’re pals now</p>
+<p>Hey there, friend!</p>
+<p>I assume we already have that kind of connection because I’ve shared some of my secrets with you, and you’re listening to me.</p>
+<p>I’ve come to tell you more!</p>
+<p>Hey! Don’t just leave yet. What I do is for you. I only want to help</p>
+<p>It’s true that choosing the path of being fit isn’t a piece of cake. It will be complete chaos when you start.</p>
+<p>Especially if you have inconsistent and unhealthy fitness routines.</p>
+<p>I mean, it’s not that what you’re doing is wrong, but is it suitable for you and your lifestyle?</p>
+<p>You&#x27;re prolly not on the best path right now since you see no visible results, don’t you think so?</p>
+<p>Well, that sucks!</p>
+<p>To waste your time and effort doing lengthy exercises with no assurance that it is suitable for you.</p>
+<p>What if you can stop that from happening?</p>
+<p>And achieve your desired results with proper tailoring and guidance from pros.</p>
+<p>Unless you wanna do it your way and just be exhausted all the way, yah know.</p>
+<p>You’d probably think that “this dude surely be bluffing.”</p>
+<p>Well, I am not bluffing, not at all.</p>
+<p>I do really believe that if you’re not getting the desired goals, then the ladder you’re stepping on doesn’t suit you.</p>
+<p>What do you think? Still no?</p>
+<p>If you stay tuned for my following emails, I&#x27;m gonna tell you the three most significant secrets to make your life easier.</p>
+<p>I bet you’re gonna love that.</p>
+<p>Be back to you soon then,</p>
+<p>[Founder name]</p>
+<p>Free Form Fitness Founder</p>
+<p>P.S. I promise, the more you get along with my emails, the more you make your fitness journey easier. Until then, get yourself ready to be fit and healthy</p>
+<p>Day 4 (Fourth Email)</p>
+<p>FFF Philosophies</p>
+<p>Subject lines</p>
+<p>The long wait for the BIG reveal is over!</p>
+<p>This is what I promised you</p>
+<p>The three biggest secrets you’ll ever need</p>
+<p>What’s up, friend?</p>
+<p>First of all, I wanna congratulate you for consistently reading my emails and understanding its content.</p>
+<p>You might probably think that I’d be bluffing you real hard about that crazy stuff I’ve mentioned to you.</p>
+<p>But remember what I’ve told you last time?</p>
+<p>Well, I&#x27;m here to keep my promise.</p>
+<p>You’re here right now with me because you find hours of workouts exhausting and unsure if you&#x27;re following the right workout and die to achieve your fitness goal.</p>
+<p>I know you hate wasting time and effort on these activities that produce no results.</p>
+<p>The truth is, exercising should not consume endless hours to get the results you’ve always wanted.</p>
+<p>Say no to those lengthy and tiresome workouts and inconsistent diets due to lack of knowledge and proper guidance from experts.</p>
+<p>Because I believe that trying to live a fit and healthy lifestyle SHOULD NOT act like a punishment.</p>
+<p>Well, who wanna be punished when you’re doing an excellent job for yourself, right?</p>
+<p>Unless if you are into some other stuff *wink*</p>
+<p>Kidding aside, here is what I came to tell you.</p>
+<p>Technically, it is not really an offer. Instead, these are the three main secrets I’ve been keeping for myself that I will share with you.</p>
+<p>There are three things that you need to consider when trying to live a healthy life</p>
+<p>Exercises</p>
+<p>Food and nutrition intake</p>
+<p>Expert and proper guidance</p>
+<p>This is exactly what FFF does! It offers personalized training with an expert that suits your preferences!</p>
+<p>It&#x27;s hard to do things alone, unsure, and inconsistent with the progress you&#x27;re doing</p>
+<p>That&#x27;s why Free Form Fitness Personal Trainers offer you knowledge about:</p>
+<p>Customized workout plan – 30-minute workout plan that will help to reach your goals</p>
+<p>Personalized nutrition plan – an easy-to-follow strategy to nourish your body the way it truly needs</p>
+<p>Expert Guidance – to guide and keep you motivated</p>
+<p>That’s big! And if you’re gonna ask me, I&#x27;ll say that it is massive.</p>
+<p>It’s like the icing on my cupcake and the cheese on my cheesecake.</p>
+<p>That’s it for now.</p>
+<p>I’ll meet you again next email to share and help you more about how to make your health and fitness desires attainable.</p>
+<p>Stay informed! Unless you wanna miss the opportunity to make your life easier</p>
+<p>[Founder name]</p>
+<p>Free Form Fitness Founder</p>
+<p>P.S. Remember that being fit and healthy SHOULD NOT act as MENTAL TORTURE.</p>
+<p>Day 5 (Fifth Email)</p>
+<p>Introductory Offer</p>
+<p>Subject lines</p>
+<p>Wait, that’s all it takes?</p>
+<p>Isn’t that a great start</p>
+<p>Personal training? Really?</p>
+<p>Hey Friend!</p>
+<p>This email won’t take too much of your time.</p>
+<p>Did you think about having a personal trainer that will guide you even with your busy schedule just like what I’ve told you?</p>
+<p>Well, there is something Free Form Fitness has to offer that will help you massively in your health and fitness journey.</p>
+<p>It is called “Introductory Offer” that I think will benefit you.</p>
+<p>The FFF Introductory Offer is an offer that gives you eight (8) sessions to see if the personal training fits your lifestyle!</p>
+<p>If you want to achieve your desired results with proper tailoring and guidance from pros…</p>
+<p>To have proper and suitable health plans…</p>
+<p>And be able to do some workouts even with your busy schedule.</p>
+<p>Then Free Form Fitness is definitely for you!</p>
+<p>The three ultimate philosophies will surely give you a decrease in time, effort, and energy you use to create a better lifestyle.</p>
+<p>Don’t miss this great opportunity that we only offer to you.</p>
+<p>Be back to you next time</p>
+<p>[Founder name]</p>
+<p>Free Form Fitness Founder</p>
+<p>Day 6 (Sixth Email)- Eight Personal Training Sessions For $96</p>
+<p>Subject lines</p>
+<p>This will be the last</p>
+<p>Good luck with your fitness journey</p>
+<p>Until next time, when things mess up</p>
+<p>Hey there,</p>
+<p>If you&#x27;re reading this, I assume that you really wanna achieve your health and fitness desires.</p>
+<p>Stop working out for hours that take all your energy and time…</p>
+<p>Quit relying on those aimless health plans that give you insufficient nutrients…</p>
+<p>Be over with performing exercises by yourself, but only to find yourself with unnoticeable results…</p>
+<p>You are saying no to these ineffective techniques that are proven to be inefficient. That is why you’re still here.</p>
+<p>Take advantage of our introductory offer and get eight personal training sessions for only $96!</p>
+<p>In these eight private training sessions, your personal trainer will take you through a customized one-on-one workout suited for your goal.</p>
+<p>Sign up here and start creating your fantastic fitness journey with Free Form Fitness.</p>
+<p>Do not miss the great experience that will change your life forever!</p>
+<p>See you next time then!</p>
+<p>[Founder name]</p>
+<p>Free Form Fitness Founder</p>
+<p>P.S. What are you still doing here? You don’t want to miss this rare opportunity to have a professional trainer guide you to reach your fitness goals, right? Go and Sign up now</p></div>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-ghl_funnel" onclick="closeModal(event, this)">
+  <div class="modal">
+    <div class="modal-header" style="background:#1565C0">
+      <div class="modal-icon">⚡</div>
+      <div class="modal-meta">
+        <div class="modal-type">Funnel Email Sequence · Multi-Email Drip</div>
+        <div class="modal-title">GoHighLevel Funnel Emails</div>
+        <div class="modal-client">Peripheral Media · Email Marketing / SaaS</div>
+      </div>
+      <button class="modal-close" onclick="document.getElementById('modal-ghl_funnel').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body">
+      <a class="drive-btn" href="https://drive.google.com/drive/folders/1HCKtw4bGOf16W3U6YoQa_sT8KhaG0wE4?usp=drive_link" target="_blank" rel="noopener">📁 View Full File on Google Drive ↗</a>
+      <div class="email-content"><p>Day 1 (First Email)</p>
+<p>Same Priced Course/PDF</p>
+<p>Subject lines</p>
+<p>Your Email Marketing Success Starts Now!</p>
+<p>Time to launch your Email Marketing success!</p>
+<p>Time to begin your Email Marketing success</p>
+<p>Body</p>
+<p>Greetings [name],</p>
+<p>I’m Carlos Diez Jr, Founder + Marketing Strategist of Peripheral Media.</p>
+<p>I’d like to take this moment to thank you for joining my presentation yesterday.</p>
+<p>To tell you this, email marketing is one of the most profitable digital channels.</p>
+<p>And by watching the MailChimp Email Marketing presentation, just like that, this email arrived in your inbox.</p>
+<p>Email engagement marketing strategy helps take your business to the next level and even large corporations use this same method to optimize their markets and increase conversions - every day!!</p>
+<p>Now you have access to the same powerful software AND you have someone who will teach you how to use it, click-by-click!</p>
+<p>Have a message that resonates with customers and builds trust</p>
+<p>Don’t let the opportunity on moving your business forward, to compete and stand out from your competitors, slip away.</p>
+<p>Here’s your chance to purchase at the same price we offered in the presentation!</p>
+<p>With MailChimp Automation, you can promote and improve relationship-building campaigns through every email.</p>
+<p>Compare that to high-risk online ads, that can be rejected at any time...for any reason, after you&#x27;ve invested hundreds or thousands of dollars. No thank you!</p>
+<p>It&#x27;s time to launch your email marketing success!</p>
+<p>By the way, here’s a bonus PDF of Secrets To Effective Email Marketing that will teach you the fundamentals of creating stunning emails for your business.</p>
+<p>Let’s talk soon,</p>
+<p>Founder + Marketing Strategist of Peripheral Media,</p>
+<p>[Founder’s Name]</p>
+<p>PS - Be sure to whitelist [email] or add us to your contacts. Stay tuned to all our emails and upcoming offers</p>
+<p>Day 2 (Second Email)</p>
+<p>Purchase Online Course</p>
+<p>Subject lines</p>
+<p>It’s Not Too Late to Start Your Email Marketing Success!</p>
+<p>Come On and Start Your Email Marketing Success</p>
+<p>This Is the Next Step for Your Successful Email Marketing</p>
+<p>Body:</p>
+<p>Hello [name],</p>
+<p>Have you dipped your toes in the learnings of what I shared in the last email?</p>
+<p>I hope that the PDF helped you a lot in understanding the Secrets to Effective Email Marketing</p>
+<p>But for now, I want to know your greatest challenge in creating successful Email Campaigns, is it…</p>
+<p>Email creation?</p>
+<p>How to speak to your customers?</p>
+<p>Technical stuff?</p>
+<p>How often do you send emails?</p>
+<p>In Peripheral Media, whatever your challenges are, we’ll be your partner in helping establish your brand!</p>
+<p>We make sure to publish material that will help you with your email marketing difficulties and also teach you how to apply it to your business.</p>
+<p>Imagine how much more valuable content is within each Module.</p>
+<p>Click Here to access [Course]. This will teach you more about how to create effective emails and how to engage your subscribers.</p>
+<p>Purchase the Mailchimp Automation course today.</p>
+<p>Talk Soon,</p>
+<p>Founder + Marketing Strategist of Peripheral Media,</p>
+<p>[Founder’s Name]</p>
+<p>Day 3 (Third Email)</p>
+<p>Core Fundamentals to Conversion</p>
+<p>Subject lines</p>
+<p>From Core Fundamentals to Conversation</p>
+<p>How Emails Do Not End up Going to Junk Folders</p>
+<p>Here Is Why Entrepreneurs Fail…</p>
+<p>Body:</p>
+<p>Hey there [name],</p>
+<p>Today, let me share some of the reasons why entrepreneurs fail in Email Marketing:</p>
+<p>Their audience doesn’t remember their brand.</p>
+<p>Emails seem random with no message or direction to the consumer.</p>
+<p>They don’t reach out to the right audience.</p>
+<p>Why am I telling you this?</p>
+<p>I don’t want you to go through the same mistakes others have made. These can be easily avoided.</p>
+<p>What good in a beautifully designed email with an effective copy if the end-user never receives it?</p>
+<p>Whether your intention is to sell an offer, nurture an audience, or let your business be known…</p>
+<p>You have to make sure customers receive your offers and messages, by not ending up in the Junk Folder or Promotions tab in Gmail.</p>
+<p>Pro Tip: Another way to really stand out is using custom templates.  Branding is key when it comes to your service, brand, or product.  Save time and look high-end with a custom branded template for your campaign. These are explained in the first Module of the Mailchimp Email Marketing course.</p>
+<p>Founder + Marketing Strategist of Peripheral Media,</p>
+<p>[Founder’s Name]</p>
+<p>.</p>
+<p>Day 4 (Fourth Email)</p>
+<p>Mailchimp Is More Than Just Email Software</p>
+<p>Subject lines</p>
+<p>Mailchimp is More Than Just Email Software</p>
+<p>Let’s Make Your Email Stand Out</p>
+<p>Body:</p>
+<p>In the world of email marketing, you need to make sure you stand out.</p>
+<p>It’s a competition of being unique in the eyes of your target audience.</p>
+<p>Otherwise, your emails (no matter how many revisions you make) will sit idle in inboxes, waiting to be deleted.  I’m sure that’s not what you want to happen.</p>
+<p>It takes the right approach to produce ready-to-buy followers who actively seek your product/service.</p>
+<p>And you have to make sure customers receive your offers and messages</p>
+<p>Remove the possibility of you ending up in your customer’s Junk Folder or Promotions tab in Gmail</p>
+<p>With Mailchimp Email Marketing course outlines, each of these features and shows you how to customize them to reflect your brand.</p>
+<p>No need to create accounts on various platforms.  Simply utilize the features you already have FREE access to.</p>
+<p>Email is just the start. Cast a wide net and add leads and paid clients to your marketing funnel!</p>
+<p>Founder + Marketing Strategist of Peripheral Media,</p>
+<p>[Founder’s Name]</p>
+<p>Day 5 (Fifth Email)</p>
+<p>Want Results Like This?</p>
+<p>Subject lines</p>
+<p>Want Result Like This?</p>
+<p>Earn More Than $1000 Revenue per Month!</p>
+<p>Remove Those What Ifs With MailChimp</p>
+<p>Body:</p>
+<p>Greetings [name],</p>
+<p>We surveyed hundreds of entrepreneurs and SMB’s.  Almost 1/2 would make an incredible amount more with email marketing.  More than $1000 revenue earnings per month!</p>
+<p>Without spending a dime on paid ads, create predictable marketing that works with upcoming promotions or seasonal offers.</p>
+<p>By the way, how much was the online course?  Less than $300.  They’ve already made back their investment.  The rest is positive revenue.</p>
+<p>What’s not free, is not taking action.</p>
+<p>It’s costing you the potential earned revenue.</p>
+<p>Cost of Inaction (C.O.I.) as I call it.</p>
+<p>Here’s one way to remove those what if’s….</p>
+<p>- You’ve seen that I’m with you 100%.</p>
+<p>- The videos include solid content that even those who aren’t tech-savvy, have learned and implemented.</p>
+<p>- I keep providing you with additional strategies that will make your marketing efforts effective.</p>
+<p>Let’s get started today.  Click here to purchase your on-demand course and join the hundreds who have started creating consistent organic marketing strategies.</p>
+<p>Founder + Marketing Strategist of Peripheral Media,</p>
+<p>[Founder’s Name]</p>
+<p>Day 6 (Sixth Email)</p>
+<p>Free Access To Micro-Learning</p>
+<p>Subject lines</p>
+<p>Free Access To Micro-Learning</p>
+<p>Access Your NO COST Lesson</p>
+<p>Let Me Share This With You</p>
+<p>Body:</p>
+<p>Hello [name],</p>
+<p>We’ve sent you several emails already identifying so many reasons why email marketing &amp; automation should be a part of business marketing.  Are you still ‘on the fence?’</p>
+<p>Ok, here’s something that may help you decide.  Click here to watch a lesson, at NO COST TO YOU.  See how we take you by the hand and show you click-by-click, how to create stunning emails.</p>
+<p>Why am I sharing this with you?</p>
+<p>After surveying hundreds of businesses, they admitted that they weren’t reaching their optimum revenue goals because of absent marketing strategies.  Email being one of them.</p>
+<p>Evidence made this theory a fact.</p>
+<p>Those who purchased our on-demand course (the same day you watched the presentation), have already created and launched several marketing campaigns.</p>
+<p>They have taken advantage of our 30-day expert assistance to fine-tune their marketing strategies and automation.  And some already have success stories.</p>
+<p>They have gained new subscribers with NO paid ads, ALL organic.</p>
+<p>Some have increased eCommerce sales.  And some have reached new audience members, that they can email and market to each month.</p>
+<p>What are you waiting for?  This works!!</p>
+<p>Purchase your access to proven email marketing, at the same low price we offered a week ago &gt;&gt; ONLY $265.</p>
+<p>Founder + Marketing Strategist of Peripheral Media,</p>
+<p>[Founder’s Name]</p>
+<p>Day 7 (Seventh Email)</p>
+<p>This May Be The Last Time We…</p>
+<p>Subject lines</p>
+<p>This Maybe The Last…</p>
+<p>Time to Say Goodbye</p>
+<p>It’s Sad to See You Go</p>
+<p>Body:</p>
+<p>Hey there [name],</p>
+<p>This is the Peripheral Media staff. We’re sending you this last email…</p>
+<p>Carlos is out of town for a few days and we were asked to take over.  We wanted to provide you an offer that is too good to overthink.</p>
+<p>We are going to give you a 1-time offer that is better than the original offer…..ready??  (checking the office to make sure no senior level staff are around.  Locking office door before sending this….)</p>
+<p>I’m going to be upfront with you, the previous 6 emails have been fire 🔥  But we’re going to make it even easier to begin learning Mailchimp.</p>
+<p>Since this may be the last email from us, I’d like to give you a parting gift…</p>
+<p>We’re giving you the golden opportunity to purchase Mailchimp Automation by splitting the cost in 2 payments!!!</p>
+<p>That’s right, pay ½ and get access to our Mailchimp Automation course, right now!</p>
+<p>There are 2 choices you can make:</p>
+<p>1. Try learning on your own.  This will cost you time (like weeks!!) and money.  How?  The money you won’t be making.</p>
+<p>2. Purchase this on-demand course, and learn everything you need within 3 hours</p>
+<p>You will have 24-hour access to each lesson.</p>
+<p>A-N-D, your price point will never go up!!</p>
+<p>Get access to new videos (like the ones we’re working on for Module 2).</p>
+<p>Join our private Facebook Group to get exclusive access to Carlos’ feeds, and private Q&amp;A sessions.</p>
+<p>Click Here and lock your price - and split your investment into 2 payments.</p>
+<p>Founder + Marketing Strategist of Peripheral Media,</p>
+<p>[Founder’s Name]</p>
+<p>P.S. Why are you still reading this email?</p>
+<p>Are you seriously going to miss this opportunity to add Mailchimp email marketing to your business?</p>
+<p>P.P.S. This is a course with LIFETIME access.</p>
+<p>And you get access to all updates without spending an additional dollar, as an existing member.  As lessons are added, the price will increase.</p>
+<p>Take advantage of this exclusive offer today!</p></div>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-onboarding" onclick="closeModal(event, this)">
+  <div class="modal">
+    <div class="modal-header" style="background:#C9A84C">
+      <div class="modal-icon">🏦</div>
+      <div class="modal-meta">
+        <div class="modal-type">Onboarding Sequence · Multi-Email Drip</div>
+        <div class="modal-title">Onboarding Email Segment</div>
+        <div class="modal-client">World Financial Group · Finance &amp; Insurance</div>
+      </div>
+      <button class="modal-close" onclick="document.getElementById('modal-onboarding').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body">
+      <a class="drive-btn" href="https://drive.google.com/drive/folders/1HCKtw4bGOf16W3U6YoQa_sT8KhaG0wE4?usp=drive_link" target="_blank" rel="noopener">📁 View Full File on Google Drive ↗</a>
+      <div class="email-content"><p>Day 1 (First Email)</p>
+<p>Introduction to Financial Plan/Protection</p>
+<p>Subject lines</p>
+<p>What is Financial Protection and Why You need it...</p>
+<p>Body:</p>
+<p>Greetings [Name]!</p>
+<p>I’m Charles Abbey, Financial Professional + Business Strategist of World Financial Group</p>
+<p>Before anything else, I want to ask you something important. Do you ever worry about your Financial Future?</p>
+<p>Like, “I want to be financially independent but I’m too scared to make a move” or “Financial oversight is too complicated, I don’t know when or how to start it”</p>
+<p>So you’ve ended up struggling to attain financial freedom that’s taking away your peace of mind.</p>
+<p>But what if I tell you that you could protect your hard-earned money and plan for a proven strategy tailored to your financial needs?!</p>
+<p>Sounds interesting, right?</p>
+<p>Of course! Anyone would want to Achieve Monetary Freedom and Build a Better Lifestyle at the same time</p>
+<p>The only thing you need to do is to make sure that you’re getting all of my emails because what I am about to say would greatly help you with these problems.</p>
+<p>If my emails aren’t getting through, you’ll miss all the valuable information about my secrets to Unlock Secrets to Financial Freedom.</p>
+<p>And I bet you wouldn’t want to miss this kind of opportunity.</p>
+<p>Talk to you soon,</p>
+<p>Charles Abbey</p>
+<p>Financial Professional + Business Strategist</p>
+<p>P.S...  Stay tuned for the following emails if you want to experience the most effective way to achieve overall financial peace of mind</p>
+<p>Day 2 (Second Email)</p>
+<p>Secrets To Unlock Financial Freedom</p>
+<p>Subject lines</p>
+<p>How to Unlock Secrets to Financial Freedom</p>
+<p>Body:</p>
+<p>Hey, [Name]!</p>
+<p>I have a secret I wish to tell you. It is something I think you would like, or not. Nonetheless, I’m going to say it anyway.</p>
+<p>It’s mentally exhausting, right? To not achieve financial peace of mind because it’s hard to protect your hard-earned money…</p>
+<p>,</p>
+<p>Thinking of different options but ending up doing nothing because they are too complicated and there is no one to help you</p>
+<p>Aren’t you afraid of having no assurance for everything you&#x27;ve built and earned when unexpected things happen to you or a family member?</p>
+<p>Indulging in a financial plan that is hemorrhaging your money and exposes you to more taxes than necessary…</p>
+<p>What if I told you that you can maximize your tax benefits and the opportunity to optimally utilize your money to create wealth.</p>
+<p>I bet you didn’t expect that!</p>
+<p>Why am I telling you this anyway? It is because I care about your well-being.</p>
+<p>I’ve seen too many professionals experiencing this problem, and I don’t want you to experience it the same way as they do!</p>
+<p>If you don’t want to achieve your financial independence and peace of mind, well, my emails are not for you.</p>
+<p>But of course, if you want what I offer, you have to keep listening to my secrets!</p>
+<p>These secrets we’ll help you make life easier.</p>
+<p>Just keep an eye on my emails if you don’t want to miss the opportunity.</p>
+<p>Talk soon,</p>
+<p>Charles Abbey</p>
+<p>Financial Professional + Business Strategist</p>
+<p>Day 3 (Third Email)</p>
+<p>Welcome to WFG</p>
+<p>Subject lines</p>
+<p>Welcome to World Financial Group</p>
+<p>Body:</p>
+<p>Hey there, [Name]!</p>
+<p>Remember what I told you last email?</p>
+<p>Well, I am here to tell you 3 different (proven and tested) ways to achieve financial freedom without risking your hard-earned money.</p>
+<p>First of all, I want to ask you, how much do you know about your financial goals?</p>
+<p>Do you have plans or road maps that you’ve looked at once in a while to keep you on track?</p>
+<p>Do you have someone, a financial professional, that you could trust with your hard-earned money?</p>
+<p>If not, I know exactly what you need!</p>
+<p>At World Financial Group, we do more than just provide financial services. We help guide people to a better future, leading you to a financial services platform and helping pursue your financial goals!</p>
+<p>Be no longer afraid of having no assurance about your financial protection</p>
+<p>As a WFG agent, I help make the dream of financial independence possible for all those in our communities across North America.</p>
+<p>There are three things to consider in order to achieve financial freedom and live a better lifestyle</p>
+<p>Choose a financial professional who has integrity and can be trusted</p>
+<p>Get a personalized financial needs analysis</p>
+<p>Get set up with a plan or road map to attain financial independence</p>
+<p>This is exactly what WFG does! We offer a tailored approach to planning for your financial future with an expert that suits your preferences!</p>
+<p>Whatever your life’s goals, our financial professionals can help design a strategy tailored to your specific needs.</p>
+<p>In order to pursue financial security, We’ll help you with:</p>
+<p>Insurance Protection- Whether you outlive your retirement, pass away unexpectedly or become disabled, there are products that can help protect the life you’ve built for yourself and your loved ones.</p>
+<p>Retirement Income Strategies- provide a variety of options to help you prepare for your leisure years confidently without having to sacrifice your quality of life.</p>
+<p>Business Strategies- structure strategies to ensure if- or when- something happens, you and your business are protected...</p>
+<p>What are you waiting for? Schedule a Complimentary, No-Obligation Appointment with Me and start building your better financial future!</p>
+<p>Schedule your appointment here and Join WFG to  Start Your Journey to Independence!</p>
+<p>Let’s see each other soon,</p>
+<p>Charles Abbey</p>
+<p>Financial Professional + Business Strategist</p></div>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-one_time_promo" onclick="closeModal(event, this)">
+  <div class="modal">
+    <div class="modal-header" style="background:#C62828">
+      <div class="modal-icon">👗</div>
+      <div class="modal-meta">
+        <div class="modal-type">Promotional Email · Single Broadcast</div>
+        <div class="modal-title">One-Time Promotion Email</div>
+        <div class="modal-client">ClaireCM Apparel · Fashion / E-Commerce</div>
+      </div>
+      <button class="modal-close" onclick="document.getElementById('modal-one_time_promo').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body">
+      <a class="drive-btn" href="https://drive.google.com/drive/folders/1HCKtw4bGOf16W3U6YoQa_sT8KhaG0wE4?usp=drive_link" target="_blank" rel="noopener">📁 View Full File on Google Drive ↗</a>
+      <div class="email-content"><p>Email Segment</p>
+<p>(One-Time Promotion Email)</p>
+<p>Subject lines</p>
+<p>Ready to Update Your Fashion Style?</p>
+<p>Want to Be Trendy and Plus Size Ready?</p>
+<p>Classy and Timeless Apparel Just for You</p>
+<p>Upgrade Your Wardrobe Within Budget</p>
+<p>Make Your Outfit Last with ClaireCM’s Apparel</p>
+<p>Body:</p>
+<p>Hello [Name]!</p>
+<p>My Name is [Founder Name], and I am the founder of [Company Name].</p>
+<p>I want to take this moment to say thank you for signing up for our One-time promotion [name of the one-time promotion].</p>
+<p>Before we proceed further, I’m curious to know your biggest challenge with your outfits on a daily and occasional basis…</p>
+<p>Find other branded clothes expensive?</p>
+<p>Have a hard time finding the correct sizes for cute trends in other fashion stores?</p>
+<p>Have a hard time finding a brand that you can trust?</p>
+<p>Clothes that are not classy enough and easily worn out?</p>
+<p>Stressful returns for incorrect sizes?</p>
+<p>Whatever your challenges could be, I’d like to let you know it’ll be different moving forward.</p>
+<p>Because here’s what’s in store for you…</p>
+<p>In ClaireCM, we strive to provide our customers with the latest fashion trends at affordable prices for a look that is Classy &amp; Timeless.</p>
+<p>We make you get the best shopping decisions by giving away a one-time promotion for you to enjoy classy and timeless attires!</p>
+<p>The best part is… only you will get a glimpse of it all!</p>
+<p>Fill your closet with stylish apparel.</p>
+<p>Worry less about the expenses for your outfits and enjoy the latest fashionable clothing while spending less!</p>
+<p>Get on board and upgrade your wardrobe within budget because you deserve to savor stylish clothing perfect for your size without worrying about availability.</p>
+<p>You won’t miss out on getting the world’s latest fashion style while helping out Multiple Sclerosis (MS) Warriors!</p>
+<p>Every purchase you make from our online store, we donate $1 towards funding MS research with the goal of one day finding a cure.</p>
+<p>Sounds awesome, right?!</p>
+<p>You’re not just hopping on a trend and saving most of your money, but you’re able to help others by spoiling yourself with every purchase.</p>
+<p>We know that you are worth these amazing discounts...</p>
+<p>So don’t let this fantastic opportunity to save money slip!</p>
+<p>Stay tuned for more discounts and limited offers.</p>
+<p>Talk to you soon,</p>
+<p>[Founder name]</p>
+<p>Claire CM</p>
+<p>P.S. I’m looking forward to seeing you with looks so FABULOUS!</p></div>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-photo_vibrance" onclick="closeModal(event, this)">
+  <div class="modal">
+    <div class="modal-header" style="background:#00838F">
+      <div class="modal-icon">📷</div>
+      <div class="modal-meta">
+        <div class="modal-type">Promotional Sequences · Multi-Client Series</div>
+        <div class="modal-title">PhotoVibrance, UnitedPatriot &amp; Karmavana</div>
+        <div class="modal-client">Multiple Clients · Photography / Lifestyle / Wellness</div>
+      </div>
+      <button class="modal-close" onclick="document.getElementById('modal-photo_vibrance').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body">
+      <a class="drive-btn" href="https://drive.google.com/drive/folders/1HCKtw4bGOf16W3U6YoQa_sT8KhaG0wE4?usp=drive_link" target="_blank" rel="noopener">📁 View Full File on Google Drive ↗</a>
+      <div class="email-content"><p>First Email</p>
+<p>PhotoVibrance Limited-Time Promotion Email</p>
+<p>Subject lines</p>
+<p>● You’re one click away from creating masterpieces!</p>
+<p>● Make your masterpiece Shine Bright with PhotoVibrance</p>
+<p>● Transform boring images with this lifetime deal!</p>
+<p>Body:</p>
+<p>Hello [Name]!</p>
+<p>My name is [Founder Name], and I am the founder of [Company Name].</p>
+<p>Before I proceed further, I’m curious to know what your biggest challenge is when it</p>
+<p>comes to taking pictures or generating creatives for a social media ad.</p>
+<p>Since photography is improving every day, making it more high-tech, photos with great</p>
+<p>content and visuals are becoming trendy.</p>
+<p>All business competitors are hoping into this trend, creating a large competition among</p>
+<p>people to get everyone’s attention- even small entrepreneurs are one of them!</p>
+<p>Does it not frustrate you whenever a photo looks dull and not ad/instagrammable</p>
+<p>worthy?</p>
+<p>Especially if you are one of the aspiring business owners who attract leads through</p>
+<p>graphic designs-images, collages, videos, etc.</p>
+<p>But what if I said that you can now TRANSFORM boring and ordinary images into a</p>
+<p>moving masterpiece?!</p>
+<p>With a simple drag and click, that unexciting photo will turn magical. No more flat and</p>
+<p>lifeless images for Facebook and Instagram.</p>
+<p>Sounds interesting, right?!</p>
+<p>Say goodbye to…</p>
+<p>• LIFELESS pictures</p>
+<p>• ORDINARY photo shots</p>
+<p>• UNAMAZING Facebook or Instagram posts</p>
+<p>• DULL copy with no art forms</p>
+<p>And hello to SUPERB motion picture that surely seizes everyone’s attention.</p>
+<p>With PhotoVibrance brought by CreateStudio, you can now easily (no sweat at all) edit</p>
+<p>all your photo with just one click!</p>
+<p>Turn those unexciting into extraordinary and attention-catcher ads.</p>
+<p>And right now, PhotoVibrance is handing out limited-time offer!</p>
+<p>From 99$ to 49$ you can now access this editing software features. Which includes:</p>
+<p>✓ Commercial use license</p>
+<p>✓ Lifetime access</p>
+<p>✓ Create unlimited images</p>
+<p>✓ Includes 100 visual effects</p>
+<p>✓ 3D Particles &amp; custom particles</p>
+<p>✓ Install on 2 devices</p>
+<p>Just click on this link and get an early pass for our gift to you.</p>
+<p>What are you waiting for? Grab that limited time offer now!</p>
+<p>I’ll be waiting for you.</p>
+<p>Best,</p>
+<p>Founder of PhotoVibrance</p>
+<p>P.S. I know you want to make your visuals look professional. Take yours into a whole</p>
+<p>new dimension with PhotoVibrance.</p>
+<p>Second Email</p>
+<p>UnitedPatriot Mug Promotion Email</p>
+<p>Subject lines</p>
+<p>● Elevate your morning rituals with this new mug</p>
+<p>● Don’t miss out on this new Frauds</p>
+<p>● Check out my new mug</p>
+<p>Body:</p>
+<p>Hey there, &lt;name&gt;.</p>
+<p>Are you tired of the unending deceptive activities of American politicians?</p>
+<p>How about we turn these stressful events into a humorous pun that will surely brighten</p>
+<p>up your day?</p>
+<p>Check out our new mug!</p>
+<p>Start your morning rituals with this patriotic truth-speaking mug that will surely elevate</p>
+<p>your mood.</p>
+<p>Take a sip of a coffee with this funny imagery, Viola! It brushes away all agony…</p>
+<p>Exhausted about Joe Biden, Nancy Pelosi, and Kamala Harris’s unceasing lies and</p>
+<p>broken promises?</p>
+<p>Paste them in a coffee mug to remind how you love the taste of liberal tears inside a</p>
+<p>funny and long-lasting mug!</p>
+<p>These politicians’ words might not last a day, but at least you have a lifelong and</p>
+<p>amusing mug.</p>
+<p>Right?</p>
+<p>You might be wondering, what are the unique features of this mug and how is it better?</p>
+<p>Other than it’s funny, this mug is:</p>
+<p>✓ Dishwasher and microwave safe</p>
+<p>✓ 11 oz volume</p>
+<p>✓ High gloss + premium black finish</p>
+<p>✓ Made to last for years</p>
+<p>Each mug is made from a premium hard coat that perfectly holds any hot or cold</p>
+<p>beverage.</p>
+<p>Customized for any republican or patriotic American.</p>
+<p>What are you waiting for? Grab yours now!</p>
+<p>Follow this link and purchase funny mugs that will boost your everyday mood.</p>
+<p>Talk soon,</p>
+<p>Founder of United Patriot</p>
+<p>P.S. Remember, a coffee and a good mug a day, keeps the stress away</p>
+<p>Get yours now and grab some of our crazy deals just for you!</p>
+<p>Third Email</p>
+<p>Karmavana and Ame Et Espirit Crystal Promotion Email</p>
+<p>Subject lines</p>
+<p>● Hey! Did you know that stone have healing abilities?</p>
+<p>● What are healing crystals and why you need them</p>
+<p>● Find out the right healing crystal for you</p>
+<p>Body:</p>
+<p>Hey there, &lt;name&gt;</p>
+<p>Have you heard about healing stones?</p>
+<p>Some people claim that they promote the flow of good energy and help rid your body</p>
+<p>and mind of negative energy for physical and emotional benefits.</p>
+<p>Other than acupuncture and yoga, gemstones are also one of the complementary and</p>
+<p>alternative medicine!</p>
+<p>And there is a lot of variety in terms of healing crystals.</p>
+<p>There are:</p>
+<p>• Clear quartz- the master healer</p>
+<p>• Jasper- nurturing stone during times of stress</p>
+<p>•  Amethyst- for purifying and enhancing willpower</p>
+<p>• Obsidian- aid in letting go</p>
+<p>• Bloodstone- for blood circulation</p>
+<p>• Etc.</p>
+<p>You might be wondering; how do I find the right healing crystal for me? And does it</p>
+<p>really work?</p>
+<p>Worry not!</p>
+<p>Because there is also what you called Rose quartz. It is one of the most popular</p>
+<p>gemstones for beginners.</p>
+<p>It is full of calm, comfort, and loving energy that resonates with almost everyone!</p>
+<p>Who couldn’t use some of that, right?</p>
+<p>But then, how could you really find the right crystal for yourself?</p>
+<p>Well first, you must identify what you FEEL that’s lacking before looking for the right</p>
+<p>stone.</p>
+<p>From there, just let your intuition choose what’s best for you!</p>
+<p>Whether a crystal catches your eye, or you feel a physical pull toward one, your</p>
+<p>subconsciousness will help guide you to the crystal that’s right for you.</p>
+<p>Although there is no scientific evidence that crystal healing has any effect, they’re both</p>
+<p>scientific and factual but are incompatible with the scientific method.</p>
+<p>Healing stones can be attributed to the placebo effect- it is when a person shows</p>
+<p>improvement after taking “dummy treatment.”</p>
+<p>Doesn’t that sound interesting?!</p>
+<p>If you want to know more about other gemstones that could help you with various issue</p>
+<p>Visit this link to explore different crystals and deepen your knowledge about them</p>
+<p>Let’s talk soon!</p>
+<p>Founder of Karmavana</p>
+<p>P.S. There are also crystals for good money and business success</p>
+<p>You might want to dive into that *wink*</p></div>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-sign_chef" onclick="closeModal(event, this)">
+  <div class="modal">
+    <div class="modal-header" style="background:#E65100">
+      <div class="modal-icon">🪧</div>
+      <div class="modal-meta">
+        <div class="modal-type">Educational Drip Sequence · Multi-Email Drip</div>
+        <div class="modal-title">The Sign Chef Email Segment</div>
+        <div class="modal-client">The Sign Chef · Business Signage / B2B</div>
+      </div>
+      <button class="modal-close" onclick="document.getElementById('modal-sign_chef').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body">
+      <a class="drive-btn" href="https://drive.google.com/drive/folders/1HCKtw4bGOf16W3U6YoQa_sT8KhaG0wE4?usp=drive_link" target="_blank" rel="noopener">📁 View Full File on Google Drive ↗</a>
+      <div class="email-content"><p>Day 1 (First Email)</p>
+<p>Introduction/Explanation on Why Does Business Sign Works?</p>
+<p>Subject Line:</p>
+<p>• Why Does Business Sign Works?</p>
+<p>• What are Business Signs and Why You Need Them?</p>
+<p>Body:</p>
+<p>Greetings [Name]!</p>
+<p>My Name is Tim Harrelson and the Founder/CEO of The Sign Chef.</p>
+<p>I’m here to tell you what Business Signs are and WHY your company need to get one.</p>
+<p>Before we further proceed, I’m curious to know what your knowledge about the impact</p>
+<p>of signages in the eye of your audiences is.</p>
+<p>Are you aware that these are the conveyors of your company’s brand identity?</p>
+<p>Here’s why…</p>
+<p>It’s easy to forget just how frequently used signages are in our daily lives.</p>
+<p>When in general, they serve several purposes:</p>
+<p>✔ It helps customers identify your company</p>
+<p>✔ It helps in Business Branding</p>
+<p>✔ It’s a cost-effective marketing strategy</p>
+<p>✔ It has psychological impact on Customers</p>
+<p>✔ It increases Brand Awareness</p>
+<p>✔ Lastly, it reflects your Business’ Quality</p>
+<p>It establishes you and your products/services that can help your company build brand</p>
+<p>recognition and gain visibility in your consumers’ mind.</p>
+<p>Hence you bought something on other’s company just because of their eye-catching</p>
+<p>business signs, right?</p>
+<p>Gotcha.</p>
+<p>Now, what if I told you that your business could also have an amazing and beautiful</p>
+<p>sign…</p>
+<p>The only thing you must do is to make sure that you’re getting all of my emails.</p>
+<p>You don’t want to miss information on how you can raise your brand awareness to your</p>
+<p>customers, do you?</p>
+<p>Talk to you soon,</p>
+<p>Tim Harrelson</p>
+<p>CEO I The Sign Chef</p>
+<p>Day 2 (Second Email)</p>
+<p>Introduction of TheSignChef.com</p>
+<p>Subject lines:</p>
+<p>●        What is TheSignChef and Why You Need US…</p>
+<p>●        Elevate Your Business with Eye-Catching Signs</p>
+<p>Body:</p>
+<p>Hi there, [Name]!</p>
+<p>It’s Tim Harrelson again from The Sign Chef.</p>
+<p>Today, I’ll tell you how to create the best and long-lasting sign for your business.</p>
+<p>But before that, I have a question to ask.</p>
+<p>Have you ever wondered why doesn’t your business catch your target audience’s eyes?</p>
+<p>And you really have great offers, yet your consumers don’t recognize who you are.</p>
+<p>Let me tell you this.</p>
+<p>The problem is not what your products or services are. Maybe your business lacks</p>
+<p>identity.</p>
+<p>You’re probably asking, “How am I going to solve this problem, Tim?”</p>
+<p>Well then, Hear me out.</p>
+<p>The Sign Chef has been in the industry for 35 years and has created countless</p>
+<p>excellent, picture-worthy, quality signs and logos.</p>
+<p>With The Sign Chef, you can elevate your business brand’s awareness by designing</p>
+<p>signs and letters you’ve always wanted!</p>
+<p>Sounds interesting, right?</p>
+<p>Who wouldn’t be excited knowing that your imagination was turned into reality?</p>
+<p>Obviously, I’ll be thrilled!</p>
+<p>Why am I telling you this anyway?</p>
+<p>Because I want you and your business to grow, to make your business well-known, and</p>
+<p>to have the brand recognition you deserved.</p>
+<p>I’ve seen a lot of professionals, businesses, and establishments who failed to convey</p>
+<p>their identity accurately.</p>
+<p>I don’t want you to be one of them.</p>
+<p>Let’s start establishing your brand identity now!</p>
+<p>Until next time,</p>
+<p>Tim Harrelson</p>
+<p>CEO I The Sign Chef</p>
+<p>P.S. Remember to put my emails in priority. You don’t want to miss out on great</p>
+<p>opportunities that I have to offer, right?</p>
+<p>Day 3 (Third Email)</p>
+<p>Benefits of Signs</p>
+<p>Subject lines:</p>
+<p>●        You Can Increase Your Brand’s Recognition with This...</p>
+<p>●        How Your Business Will Make Strong Impression…</p>
+<p>Body:</p>
+<p>Hi there, [Name]!</p>
+<p>It’s Tim Harrelson, CEO of The Sign Chef, and today I’m here to tell you how signs</p>
+<p>become the foundation of a brand’s identity.</p>
+<p>I’m sure that right now you are in doubt if it’s worth it to spend lots of money on</p>
+<p>business signages and logos.</p>
+<p>You might be telling yourself right now that it might not be something you want to spend</p>
+<p>dimes for.</p>
+<p>But I’m here to change your mind or maybe convince you a little.</p>
+<p>Every day some entrepreneurs start a business.</p>
+<p>And with the continuous expansion of brands, services, and products, one of the things</p>
+<p>that could make a business unique and recognized are its signs and logos.</p>
+<p>Signs are an essential element for business success. Once they capture the potential</p>
+<p>target audience’s attention, it becomes an inanimate salesperson.</p>
+<p>They increase brand awareness and have their way to reach the right audiences!</p>
+<p>And if you’re going to ask me, signs and logos should be considered part of a</p>
+<p>company’s marketing.</p>
+<p>I mean, why wouldn’t, right?</p>
+<p>With creative and appealing signs, they’re very effective at promoting business and</p>
+<p>drawing the attention of possible customers.</p>
+<p>They convey brand character which helps the consumers identify the business.</p>
+<p>Did you know that they also have a psychological impact on the customers?</p>
+<p>Amazing right?</p>
+<p>Well, I hope that’s enough to convince you.</p>
+<p>How about this…</p>
+<p>If you promise to be updated on my emails, I’ll share big secrets The Sign Chef has in</p>
+<p>generating the BEST SIGNS and LETTERS.</p>
+<p>Sounds great?</p>
+<p>Until then,</p>
+<p>Tim Harrelson</p>
+<p>CEO I The Sign Chef</p>
+<p>Day 4 (Fourth Email)</p>
+<p>Three Pillars of TheSignChef</p>
+<p>Subject lines:</p>
+<p>● Three Core Pillars of TheSignChef</p>
+<p>● The Secrets to Becoming a Well-Recognized Business</p>
+<p>Body:</p>
+<p>Greetings, [Name]!</p>
+<p>It&#x27;s Tim Harrelson, CEO of The Sign Chef, and I’m here to fulfill my promises.</p>
+<p>So today, I’m going to reveal the three big secrets of The Sign Chef in helping a</p>
+<p>business to be well-recognized.</p>
+<p>And generating beautiful signs for your business is easier than you think!</p>
+<p>Before that, I want to ask if you ever experienced having a sign:</p>
+<p>•</p>
+<p>That didn’t turn right, or you simply not liked at all</p>
+<p>•</p>
+<p>Is an unprofessionally looking sign</p>
+<p>•</p>
+<p>Is cheap and easily broken</p>
+<p>•</p>
+<p>Doesn’t really match you and your business</p>
+<p>•</p>
+<p>Isn’t appealing at all</p>
+<p>Isn’t that disappointing? Investing in something that isn’t worth it at all.</p>
+<p>And it turned out to be a big waste of money, time, and attention.</p>
+<p>What if you won’t experience that with The Sign Chef?</p>
+<p>Here is the secret I’m talking about…</p>
+<p>We have three core pillars in achieving the perfect signages and logos that will match</p>
+<p>your business where we make your imagination into reality.</p>
+<p>Sounds incredible, right?</p>
+<p>The Sign Chef creates beautiful, custom-made signs and letters that are engineered to</p>
+<p>last.</p>
+<p>You read it right, they&#x27;re custom-made and engineered to last!</p>
+<p>You won’t just love how your new signages would turn out because the design will suit</p>
+<p>your style, they will also be long-lasting.</p>
+<p>You might be saying that “You’re surely bluffing Tim! There is no way signages would</p>
+<p>last long!”</p>
+<p>That’s why in The Sign Chef, we offer you a LIFETIME REPLACEMENT WARRANTY</p>
+<p>that covers our top sign products-including dimensional letters, logos, and plaques.</p>
+<p>What a great deal!</p>
+<p>We’ll help you choose the right and unique signages that match your style. Plus, your</p>
+<p>investment won’t go to waste because of its lifelong quality.</p>
+<p>Still in doubt?</p>
+<p>Then keep yourself updated because I’ll show you what I’m talking about</p>
+<p>Until then,</p>
+<p>Tim Harrelson</p>
+<p>CEO I The Sign Chef</p>
+<p>Day 5 (Fifth Email)</p>
+<p>Testimonials</p>
+<p>Subject lines</p>
+<p>●        Here Is the Evidence That You Want</p>
+<p>●        I Have This up My Sleeves</p>
+<p>Body:</p>
+<p>Hey there, [Name].</p>
+<p>It’s Tim Harrelson again from The Sign Chef. I’m here to prove my credibility to you.</p>
+<p>Since 1987, we’ve consistently put extra work into accomplishing our client’s dream</p>
+<p>signs. I guess that’s one of the best-kept secrets why our reliability has been blazing</p>
+<p>high in creating the brand&#x27;s identity.</p>
+<p>And when I started the company, I solemnly swore that I’ll do my best to turn my client’s</p>
+<p>imagination into reality. Producing unique and stylish design of signages the way our</p>
+<p>clients have always wanted.</p>
+<p>How do I do that exactly? With an outstanding design and long-lasting materials that&#x27;ll</p>
+<p>surely outshine their competitors.</p>
+<p>The Sign Chef produces America’s most durable signs and letters!</p>
+<p>Not only it is exactly how our customers desired, but also their signs are manufactured</p>
+<p>within their preferred timeframe.</p>
+<p>Still in doubt? How about I let some of our past clients speak for us…</p>
+<p>That is just some of my evidence and I got way lot more!</p>
+<p>Want to know more about The Sign Chef and how you’ll have the most incredible sign</p>
+<p>for your business?</p>
+<p>In my following email, I’ll give you an irresistible offer that is on the house! (a no-cost</p>
+<p>offer that’ll surely</p>
+<p>So, keep yourself updated and don’t miss out on that great opportunity…</p>
+<p>Best,</p>
+<p>Tim Harrelson</p>
+<p>CEO I The Sign Chef</p>
+<p>P.S. Free offer? If I were you, I will definitely be staying tuned!</p>
+<p>Day 6 (Sixth Email)</p>
+<p>Schedule an Appointment</p>
+<p>Subject lines:</p>
+<p>● This Is the Sign to Get a Sign!</p>
+<p>● Why Not All Signs and Logos Works</p>
+<p>● It’s on the House</p>
+<p>Body:</p>
+<p>Greetings, [Name]!</p>
+<p>I’m Tim, CEO of The Sign Chef, and this might be the last email for now…</p>
+<p>Remember what I told you last email?</p>
+<p>I asked if you want to know more about The Sign Chef and how you’ll have the most</p>
+<p>incredible sign for your business.</p>
+<p>I assume that&#x27;s a yes because you are here. You are curious about my offer and how to</p>
+<p>gain an incredible sign and logo for your business.</p>
+<p>In my past emails, I told you a lot of things about signs, letters, and logos.</p>
+<p>And I know, you might still be in doubt about our company. After all, the services are too</p>
+<p>good to be true.</p>
+<p>That’s why I’m inviting you to schedule a NO-COST consultation with me-Tim.</p>
+<p>That’s right, it’s totally free!</p>
+<p>Let’s hop on a call. I’m going to answer all of your queries and worries and solve</p>
+<p>difficulties that won’t cost you not even a penny.</p>
+<p>The only thing you must do is to schedule an appointment- all according to your comfort</p>
+<p>(no pressure at all!)</p>
+<p>Just click this link and let’s start talking!</p>
+<p>Talk to you soon,</p>
+<p>Tim Harrelson</p>
+<p>CEO I The Sign Chef</p>
+<p>P.S. What are you still doing here? Go! Schedule an appointment NOW.</p></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <strong>Franklin May S. Maldonado</strong> &nbsp;·&nbsp; Senior Copywriter & General VA &nbsp;·&nbsp; maym84244@gmail.com
+</footer>
+
+<script>
+function closeModal(e, overlay) {
+  if (e.target === overlay) overlay.classList.remove('open');
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+});
+</script>
+
+</body>
+</html>
